@@ -1,0 +1,76 @@
+--  database '
+create database zone;
+use zone;
+
+-- 1. Create Employee Table
+CREATE TABLE Employee (
+    S_no INT PRIMARY KEY AUTO_INCREMENT,
+    Employee_ID INT NOT NULL,
+    Employee_Name VARCHAR(255),
+    DateOfBirth DATE,
+    DateOfJoining DATE,
+    Salary DECIMAL(10, 2),
+    Bonus DECIMAL(10, 2),
+    City VARCHAR(255),
+    Address VARCHAR(255),
+    Department VARCHAR(255),
+    Employee_Email VARCHAR(255),
+    Employee_Status VARCHAR(50),
+    TimeStamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Insert value
+INSERT INTO Employee (Employee_ID, Employee_Name, DateOfBirth, DateOfJoining, Salary, Bonus, City, Address, Department, Employee_Email, Employee_Status)
+VALUES 
+(1, 'Mownika', '1985-03-10', '2015-07-15', 75000, 5000, 'Chennai', '123 Main St, Chennai', 'IT', 'mownika@company.com', 'Active'),
+(2, 'Kalpana', '1990-02-20', '2017-08-01', 62000, 4000, 'Bangalore', '456 Main St, Bangalore', 'HR', 'kalpana@company.com', 'Active'),
+(3, 'Namitha', '1992-04-10', '2019-06-12', 68000, 4500, 'Chennai', '789 Main St, Chennai', 'Finance', 'namitha@company.com', 'Active'),
+(4, 'Shajitha', '1988-07-25', '2020-10-22', 72000, 4700, 'Chennai', '321 Main St, Chennai', 'Marketing', 'shajitha@company.com', 'Active'),
+(5, 'Aishwarya', '1995-12-30', '2021-01-10', 54000, 3500, 'Mumbai', '654 Main St, Mumbai', 'Sales', 'aishwarya@company.com', 'Active'),
+(6, 'Maggi', '1993-05-12', '2018-09-15', 80000, 5500, 'Hyderabad', '987 Main St, Hyderabad', 'IT', 'maggi@company.com', 'Active'),
+(7, 'Nandhu', '1987-01-10', '2016-05-30', 95000, 6000, 'Chennai', '147 Main St, Chennai', 'Operations', 'nandhu@company.com', 'Active'),
+(8, 'Aishu', '1994-08-22', '2022-11-01', 52000, 3000, 'Bangalore', '258 Main St, Bangalore', 'HR', 'aishu@company.com', 'Active'),
+(9, 'Swathi', '1989-10-14', '2017-03-23', 67000, 4300, 'Chennai', '369 Main St, Chennai', 'Marketing', 'swathi@company.com', 'Active'),
+(10, 'Karthi', '1991-11-05', '2020-01-01', 72000, 5000, 'Chennai', '741 Main St, Chennai', 'Sales', 'karthi@company.com', 'Active');
+
+-- 3. Change the column name (Example: Change Employee_Name to FullName)
+ALTER TABLE Employee CHANGE COLUMN Employee_Name FullName VARCHAR(255);
+
+-- 4. Add a new column (example: Age)
+ALTER TABLE Employee ADD COLUMN Age INT;
+
+-- 5. Alter the table with some records (Example: Update Age based on DateOfBirth)
+UPDATE Employee SET Age = YEAR(CURDATE()) - YEAR(DateOfBirth);
+
+-- 6. View all the employees whose names start with "M"
+SELECT * FROM Employee WHERE FullName LIKE 'M%';
+
+-- 7. View employees with salary greater than 70000
+SELECT * FROM Employee WHERE Salary > 70000;
+
+-- 8. View employees in the City "Chennai"
+SELECT * FROM Employee WHERE City = 'Chennai';
+
+-- 9. Use logical operators (Example: Salary > 70000 AND City = 'Chennai')
+SELECT * FROM Employee WHERE Salary > 70000 AND City = 'Chennai';
+
+-- 10. Use aggregate functions (MIN, MAX, COUNT, SUM, AVG)
+SELECT 
+    MIN(Salary) AS MinSalary,
+    MAX(Salary) AS MaxSalary,
+    COUNT(*) AS EmployeeCount,
+    SUM(Salary) AS TotalSalary,
+    AVG(Salary) AS AvgSalary
+FROM Employee;
+
+-- 11. Use WHERE, LIKE, BETWEEN and view the results (Example: Employees whose names are between 'M' and 'N')
+SELECT * FROM Employee WHERE FullName BETWEEN 'M' AND 'N';
+
+-- 12. Use the LIKE operator with a pattern
+SELECT * FROM Employee WHERE FullName LIKE '%a%';
+
+-- 13. Using BETWEEN operator to find employees with salaries between 60,000 and 80,000
+SELECT * FROM Employee WHERE Salary BETWEEN 60000 AND 80000;
+
+-- 14. Update records (example: change status of "Mownika" to 'Inactive')
+UPDATE Employee SET Employee_Status = 'Inactive' WHERE FullName = 'Mownika';
